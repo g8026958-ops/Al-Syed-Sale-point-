@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Store Management System</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Segoe UI;
+  background:#fdeff3;
+}
+.login{
+  width:350px;
+  margin:120px auto;
+  background:white;
+  padding:30px;
+  border-radius:10px;
+  text-align:center;
+}
+input,button{
+  width:90%;
+  padding:10px;
+  margin:10px;
+}
+button{
+  background:#d6336c;
+  color:white;
+  border:none;
+  cursor:pointer;
+  border-radius:5px;
+}
+.app{display:none;}
+.header{
+  background:#d6336c;
+  color:white;
+  padding:15px;
+  font-size:20px;
+}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:10px;
+  padding:15px;
+}
+.card{
+  background:white;
+  padding:15px;
+  border-radius:8px;
+}
+table{
+  width:95%;
+  margin:15px auto;
+  background:white;
+  border-collapse:collapse;
+}
+th,td{
+  padding:10px;
+  border-bottom:1px solid #ddd;
+}
+.low{color:red;font-weight:bold;}
+.hot{color:green;font-weight:bold;}
+.invoice{
+  width:95%;
+  margin:15px auto;
+  background:white;
+  padding:15px;
+  border-radius:8px;
+}
+canvas{background:white;margin:15px;border-radius:8px;}
+</style>
+</head>
+
+<body>
+
+<div class="login" id="login">
+<h2>Admin Login</h2>
+<input type="password" id="pass" placeholder="Password">
+<button onclick="login()">Login</button>
+</div>
+
+<div class="app" id="app">
+<div class="header">Cosmetics & Jewelry Store – Admin Panel</div>
+
+<div class="cards">
+<div class="card">Total Sales<br><b id="sales">0 PKR</b></div>
+<div class="card">Total Profit<br><b id="profit">0 PKR</b></div>
+<div class="card">Hot Item<br><b id="hot">-</b></div>
+<div class="card">Low Stock<br><b id="low">0</b></div>
+</div>
+
+<table>
+<tr>
+<th>Product</th>
+<th>Buy</th>
+<th>Sale</th>
+<th>Stock</th>
+<th>Sold</th>
+</tr>
+<tr>
+<td>Gold Necklace</td>
+<td>15000</td>
+<td>20000</td>
+<td>5</td>
+<td class="hot">25</td>
+</tr>
+<tr>
+<td>Lipstick</td>
+<td>300</td>
+<td>600</td>
+<td class="low">2</td>
+<td>15</td>
+</tr>
+</table>
+
+<div class="invoice">
+<h3>Invoice (Auto)</h3>
+Product: Gold Necklace<br>
+Qty: 1<br>
+Price: 20,000 PKR<br>
+<b>Total: 20,000 PKR</b>
+</div>
+
+<canvas id="chart" height="130"></canvas>
+
+</div>
+
+<script>
+function login(){
+  if(pass.value==="1234"){
+    login.style.display="none";
+    app.style.display="block";
+    loadData();
+  }else alert("Wrong Password");
+}
+
+function loadData(){
+  let totalSales = 20000*25 + 600*15;
+  let totalCost = 15000*25 + 300*15;
+  sales.innerText = totalSales+" PKR";
+  profit.innerText = (totalSales-totalCost)+" PKR";
+  hot.innerText="Gold Necklace";
+  low.innerText=1;
+  drawChart();
+}
+
+function drawChart(){
+  let c=chart.getContext("2d");
+  let data=[80,120,90,160,200];
+  c.fillStyle="#d6336c";
+  data.forEach((v,i)=>{
+    c.fillRect(i*60+30,130-v,30,v);
+  });
+}
+</script>
+
+</body>
+</html>
